@@ -1,1 +1,11 @@
-<view>{{ title }}</view>
+<view class="container">
+	<image class="icon" src="../../assets/images/icon.png" />
+	<text class="title">欢迎使用</text>
+
+
+	<van-button bind:click="toIndex" class="btn" plain  hairline size="large" color="#000" icon="location">
+		获取定位
+	</van-button>
+
+</view>
+

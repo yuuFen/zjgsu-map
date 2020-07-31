@@ -6,38 +6,35 @@ Page({
   data: {
     title: 'hello world',
   },
+
+  toIndex() {
+    wx.navigateTo({
+      url: '../index/index',
+    });
+  },
+
   /**
    * 页面加载
    */
-  onLoad(options) {
-
-  },
+  onLoad(options) {},
 
   /**
    * 页面展示
    */
-  onShow() {
-
-  },
+  onShow() {},
 
   /**
    * 页面渲染成功
    */
-  onReady() {
-
-  },
+  onReady() {},
 
   /**
    * 页面隐藏
    */
-  onHide() {
-
-  },
+  onHide() {},
 
   /**
    * 页面卸载
    */
-  onUnload() {
-    
-  },
+  onUnload() {},
 });
