@@ -12,7 +12,6 @@ const uglifyES = require("uglify-es");
 const minifyES = composer(uglifyES, console);
 
 const pkg = require("./package.json");
-// const jsonTransform = require("gulp-json-transform");
 
 /* 文件路径 */
 const PATH = {
@@ -172,21 +171,21 @@ gulp.task("copy-node-modules", () => {
     .pipe(gulp.dest(PATH.DIST));
 });
 
-// // /**
-// //  * @description npm支持2，根据dependencies生成package.json
-// //  */
-// gulp.task("generate-package-json", () => {
-//   return gulp
-//     .src("./package.json")
-//     .pipe(
-//       jsonTransform(() => {
-//         return {
-//           dependencies: pkg.dependencies
-//         };
-//       })
-//     )
-//     .pipe(gulp.dest(PATH.DIST));
-// });
+// /**
+//  * @description npm支持2，根据dependencies生成package.json
+//  */
+gulp.task("generate-package-json", () => {
+  return gulp
+    .src("./package.json")
+    .pipe(
+      $.jsonEditor(() => {
+        return {
+          dependencies: pkg.dependencies
+        };
+      })
+    )
+    .pipe(gulp.dest(PATH.DIST));
+});
 
 /**
  * @description 通用编译
@@ -197,7 +196,7 @@ gulp.task(
     "clean",
     gulp.parallel(
       "copy-node-modules",
-      // "generate-package-json",
+      "generate-package-json",
       "compile-ts",
       "compile-less",
       "copy-other"
@@ -232,7 +231,7 @@ gulp.task(
     "clean",
     gulp.parallel(
       "copy-node-modules",
-      // "generate-package-json",
+      "generate-package-json",
       "compile-ts",
       "compile-less",
       "copy-other",

@@ -3,15 +3,11 @@
 	"packOptions": {
 		"ignore": []
 	},
-	"miniprogramRoot": "miniprogram/",
+	"miniprogramRoot": "dist/",
+	"cloudfunctionRoot": "cloudfunctions/",
 	"compileType": "miniprogram",
 	"libVersion": "2.8.2",
 	"projectname": "zjgsu-guide-map-wx",
-	"scripts": {
-		"beforeCompile": "npm run tsc",
-		"beforePreview": "npm run tsc",
-		"beforeUpload": "npm run tsc"
-	},
 	"setting": {
 		"urlCheck": true,
 		"scopeDataCheck": false,
@@ -35,5 +31,6 @@
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"appid": "wx5eb466bb43f4f808",
+	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
 	"condition": {}
 }
