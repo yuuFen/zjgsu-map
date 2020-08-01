@@ -25,7 +25,7 @@
 			 wx:for="{{markerTypes}}"
 			 wx:key="{{item.type}}"
 			 data-type="{{item.type}}"
-			 class="option {{currentMarkerTypes === item.type ? 'selected' : ''}}"
+			 class="option {{currentMarkerType === item.type ? 'selected' : ''}}"
 			>
 				{{item.type}}
 			</view>

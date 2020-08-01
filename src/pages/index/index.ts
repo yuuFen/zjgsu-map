@@ -13,7 +13,7 @@ Page({
     polyline: [],
 
     showMarkerTypePacker: true,
-    currentMarkerTypes: '景点',
+    currentMarkerType: '景点',
 
     scale: 16, // 缩放程度
     longitude: 120.388642, // 中心经度
@@ -33,10 +33,15 @@ Page({
           allMarkers: result.map((item: any) => {
             item.callout = {
               content: item.title,
-              padding: 10,
-              borderRadius: 2,
               display: 'ALWAYS',
+              bgColor: '#ffffff',
+              borderRadius: 4,
+              fontSize: 11,
+              padding: 6,
             };
+            item.iconPath = `/assets/images/markers/${item.iconPath}.png`;
+            item.width = 21;
+            item.height = 30;
             return item;
           }),
         });
@@ -55,14 +60,14 @@ Page({
   selectMarkerType(e: any) {
     const { type } = e.target.dataset;
     this.setData({
-      currentMarkerTypes: type,
+      currentMarkerType: type,
     });
     this.setMarkers();
   },
   setMarkers() {
     this.setData({
       markers: this.data.allMarkers.filter(
-        (item: any) => item.type === this.data.currentMarkerTypes,
+        (item: any) => item.type === this.data.currentMarkerType,
       ),
     });
   },
