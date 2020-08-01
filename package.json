@@ -35,6 +35,7 @@
     "gulp-uglify": "^3.0.2",
     "imagemin-pngquant": "^9.0.0",
     "miniprogram-api-typings": "^2.8.3-1",
+    "node-xlsx": "^0.15.0",
     "postcss-px2rpx": "0.0.4",
     "typescript": "^3.3.3333",
     "uglify-es": "^3.3.9"
