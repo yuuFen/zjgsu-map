@@ -1,14 +1,38 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="nickname">{{userInfo.nickName}}</text>
-    </block>
-    <image class="QR-code" src="../../assets/images/QR.png" />
-    <view class="motto">
-      <text >{{motto}}</text>
-    </view>
-  </view>
+	<map
+	 class="map"
+	 markers="{{markers}}"
+	 polyline="{{polyline}}"
+	 scale="{{scale}}"
+	 longitude="{{longitude}}"
+	 latitude="{{latitude}}"
+	 enable-satellite="{{isSatellite}}"
+	 bindmarkertap="showDetail"
+	 enable-rotate="{{true}}"
+	 show-location="{{true}}"
+	 enable-3D="{{ true }}"
+	 show-compass="{{true}}"
+	/>
+
+	<!-- Marker Type Picker -->
+	<view>
+		<view catchtap="changeSatellite" style="background: rgba(255, 255, 255, 0.6);width: 34px;height: 34px;padding: 8px;border-radius: 4px;position: absolute; right: 0; top: 15vh">
+			<image style="width: 100%;height: 100%" src="../../assets/images/earth.png" />
+		</view>
+		<view class="picker {{showMarkerTypePacker ? '' : 'hide'}}" catchtap="selectMarkerType">
+			<view
+			 wx:for="{{markerTypes}}"
+			 wx:key="{{item.type}}"
+			 data-type="{{item.type}}"
+			 class="option {{currentMarkerTypes === item.type ? 'selected' : ''}}"
+			>
+				{{item.type}}
+			</view>
+
+		</view>
+
+	</view>
+
 </view>
+

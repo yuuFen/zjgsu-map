@@ -5,51 +5,70 @@ const app = getApp<IAppOption>();
 
 Page({
   data: {
-    motto: 'YuuFen 的个人网站😊',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    isLocate: false,
+    isSatellite: false,
+    markers: [] as any,
+    allMarkers: [] as any,
+    markerTypes: [] as any,
+    polyline: [],
+
+    showMarkerTypePacker: true,
+    currentMarkerTypes: '景点',
+
+    scale: 16, // 缩放程度
+    longitude: 120.388642, // 中心经度
+    latitude: 30.310303, // 中心纬度
   },
   // 事件处理函数
-  bindViewTap() {
-    wx.navigateTo({
-      url: '../logs/logs',
-    });
+  showDetail(e: any) {
+    console.log(e.detail);
   },
   onLoad() {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true,
-      });
-    } else if (this.data.canIUse) {
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = (res) => {
+    wx.cloud
+      .callFunction({
+        name: 'getMarkers',
+      })
+      .then(({ result }) => {
         this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true,
+          allMarkers: result.map((item: any) => {
+            item.callout = {
+              content: item.title,
+              padding: 10,
+              borderRadius: 2,
+              display: 'ALWAYS',
+            };
+            return item;
+          }),
         });
-      };
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: (res) => {
-          app.globalData.userInfo = res.userInfo;
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true,
+        wx.cloud
+          .callFunction({
+            name: 'getMarkerTypes',
+          })
+          .then(({ result }) => {
+            this.setData({
+              markerTypes: result,
+            });
+            this.setMarkers();
           });
-        },
       });
-    }
   },
-  getUserInfo(e: any) {
-    console.log(e);
-    app.globalData.userInfo = e.detail.userInfo;
+  selectMarkerType(e: any) {
+    const { type } = e.target.dataset;
     this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true,
+      currentMarkerTypes: type,
+    });
+    this.setMarkers();
+  },
+  setMarkers() {
+    this.setData({
+      markers: this.data.allMarkers.filter(
+        (item: any) => item.type === this.data.currentMarkerTypes,
+      ),
+    });
+  },
+  changeSatellite() {
+    this.setData({
+      isSatellite: !this.data.isSatellite,
     });
   },
 });
