@@ -1,0 +1,6 @@
+<van-icon
+ class="btn-back {{color}}"
+ bindtap="onButtonTap"
+ style="left: 15px;top:{{bounding.top}}px;height:{{bounding.height}}px;line-height:{{bounding.height}}px;width:{{bounding.height}}px;"
+/>
+
