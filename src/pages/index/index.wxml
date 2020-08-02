@@ -1,6 +1,7 @@
 <!--index.wxml-->
 <view class="container">
 	<map
+	 id="map"
 	 class="map"
 	 markers="{{markers}}"
 	 polyline="{{polyline}}"
@@ -15,24 +16,51 @@
 	 show-compass="{{true}}"
 	/>
 
-	<!-- Marker Type Picker -->
 	<view>
-		<view catchtap="changeSatellite" style="background: rgba(255, 255, 255, 0.6);width: 34px;height: 34px;padding: 8px;border-radius: 4px;position: absolute; right: 0; top: 15vh">
-			<image style="width: 100%;height: 100%" src="../../assets/images/earth.png" />
+		<view class="search-container {{onSearchFocus && 'focus'}}" style="width:{{bounding.left - 25}}px;left:15px;top:{{bounding.top}}px;height:{{bounding.height}}px;line-height:{{bounding.height}}px;">
+			<van-icon name="{{onSearchFocus ? 'arrow-left' : 'search'}}" bindtap="onSearchBlur" />
+			<input
+			 bindfocus="onSearchFocus"
+			 placeholder="搜地点、找路线"
+			 value="{{searchInput}}"
+			 bindinput="search"
+			/>
 		</view>
-		<view class="picker {{showMarkerTypePacker ? '' : 'hide'}}" catchtap="selectMarkerType">
-			<view
-			 wx:for="{{markerTypes}}"
-			 wx:key="{{item.type}}"
-			 data-type="{{item.type}}"
-			 class="option {{currentMarkerType === item.type ? 'selected' : ''}}"
-			>
-				{{item.type}}
+
+		<view wx:if="{{ onSearchFocus }}" class="mask">
+			<scroll-view scroll-y="{{true}}" class="search-content" style="top:{{bounding.bottom+15}}px">
+				<view wx:for="{{searchMarkers}}">
+					<view class="list-item-container van-hairline--bottom" data-marker="{{item}}" bindtap="mapToItemPos">
+						<image class="list-item-icon" src="{{item.iconPath}}" />
+						<view class="list-item-content">
+							<text class="list-item-content-title">{{item.title}}</text>
+							<text class="list-item-content-dec">{{item.type}}</text>
+						</view>
+						<view class="list-item-goto">
+							<image src="../../assets/images/goto.png" />
+							到这去
+						</view>
+					</view>
+				</view>
+			</scroll-view>
+		</view>
+
+		<!-- Marker Type Picker -->
+		<view wx:if="{{!onSearchFocus}}" class="right-bar {{showBars ? '' : 'hide'}}">
+			<view catchtap="changeSatellite" class="btn">
+				<image src="../../assets/images/earth.png" />
 			</view>
-
+			<view class="picker " catchtap="selectMarkerType">
+				<view
+				 wx:for="{{markerTypes}}"
+				 wx:key="{{item.type}}"
+				 data-type="{{item.type}}"
+				 class="option {{currentMarkerType === item.type ? 'selected' : ''}}"
+				>
+					{{item.type}}
+				</view>
+			</view>
 		</view>
-
 	</view>
-
 </view>
 

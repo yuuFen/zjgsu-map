@@ -5,35 +5,124 @@
   height: 100vh;
 }
 
-.picker {
+.right-bar {
   position: absolute;
-  width: 50px;
+  width: 48px;
   top: 50%;
   transform: translateY(-50%);
   right: 0;
-  max-height: 50px * 6.5;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 4px;
-  overflow-y: scroll;
-  opacity: 1;
-  transition: @toggle;
-  
+
   &.hide {
     opacity: 0;
     right: -120%;
   }
-  
-  .option {
-    border-radius: 4px;
-    font-size: @fs-xs;
-    width: 100%;
-    height: 50px;
-    line-height: 50px;
-    text-align: center;
-    transition: 0.3s;
+  .btn {
+    background: rgba(255, 255, 255, 0.9);
+    width: 32px;
+    height: 32px;
+    padding: 8px;
+    border-radius: 3px;
+    image {
+      width: 100%;
+      height: 100%;
+    }
+  }
 
-    &.selected {
-      background: @color-primary;
+  .picker {
+    height: 50px * 6.5;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 3px;
+    overflow-y: scroll;
+    opacity: 1;
+    transition: @toggle;
+    margin: 50px 0;
+    .option {
+      border-radius: 3px;
+      font-size: @fs-xxs;
+      width: 100%;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      transition: 0.3s;
+
+      &.selected {
+        background: @color-primary;
+      }
+    }
+  }
+}
+
+.search-container {
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.9);
+  color: #000;
+  border-radius: 3px;
+  box-shadow: 0 0 2px #aaa;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+
+  transition: 0.2s;
+  &.focus {
+    background: rgba(255, 255, 255, 1);
+  }
+  input {
+    font-size: @fs-basic;
+    flex: 1;
+    padding: 0 10px;
+  }
+}
+
+.search-content {
+  position: absolute;
+  left: 15px;
+  width: calc(100vw - 30px);
+  bottom: 0px;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 3px 3px 0 0;
+  box-shadow: 0 0 2px #aaa;
+  // overflow-y: scroll;
+  &:last-child {
+    border-bottom: 0;
+  }
+  .list-item-container {
+    margin: 0 20px;
+    display: flex;
+    height: 60px;
+    align-items: center;
+    border-bottom: 0.1px #eee solid;
+
+    .list-item-icon {
+      width: 30px;
+      height: 40px;
+    }
+
+    .list-item-content {
+      display: flex;
+      flex-direction: column;
+      padding: 0 20px;
+      flex: 1;
+      .list-item-content-title {
+        font-size: @fs-sm;
+      }
+      .list-item-content-dec {
+        font-size: @fs-xs;
+        color: #888;
+      }
+    }
+    .list-item-goto {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: @fs-xs;
+      color: #666;
+      width: 40px;
+      image {
+        width: 22px;
+        height:22px;
+      }
     }
   }
 }
