@@ -27,7 +27,8 @@
 			/>
 		</view>
 
-		<view wx:if="{{ onSearchFocus }}" class="mask">
+		<view class="mask {{onSearchFocus && 'visiable'}}">
+			<view class="search-back-btn" bindtap="onSearchBlur" style="bottom:{{searchBackBottom}}px">返回</view>
 			<scroll-view scroll-y="{{true}}" class="search-content" style="top:{{bounding.bottom+15}}px">
 				<view wx:for="{{searchMarkers}}">
 					<view class="list-item-container van-hairline--bottom" data-marker="{{item}}" bindtap="mapToItemPos">

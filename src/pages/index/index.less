@@ -75,15 +75,25 @@
   }
 }
 
+@keyframes fadeIn {
+  from {
+    bottom: 100vh;
+  }
+  to {
+    bottom: 0;
+  }
+}
+
 .search-content {
   position: absolute;
   left: 15px;
-  width: calc(100vw - 30px);
   bottom: 0px;
+  width: calc(100vw - 30px);
   background: rgba(255, 255, 255, 1);
   border-radius: 3px 3px 0 0;
   box-shadow: 0 0 2px #aaa;
-  // overflow-y: scroll;
+  animation: fadeIn 0.8s;
+
   &:last-child {
     border-bottom: 0;
   }
@@ -121,8 +131,24 @@
       width: 40px;
       image {
         width: 22px;
-        height:22px;
+        height: 22px;
       }
     }
   }
+}
+
+.search-back-btn {
+  position: absolute;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.9);
+  color: #000;
+  border-radius: 50%;
+  box-shadow: 0 0 2px #aaa;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  font-size: @fs-basic;
+  color: #444;
+  width: 40px;
+  right: 20px;
 }

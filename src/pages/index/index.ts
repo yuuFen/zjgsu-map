@@ -12,7 +12,7 @@ Page({
     bounding: wx.getMenuButtonBoundingClientRect(),
     onSearchFocus: false,
     searchInput: '',
-
+    searchBackBottom: 50,
     mapContext: null as any,
 
     isLocate: false,
@@ -38,7 +38,11 @@ Page({
     this.setData({
       mapContext: wx.createMapContext('map', this),
     });
-
+    wx.onKeyboardHeightChange((res) => {
+      this.setData({
+        searchBackBottom: Math.max(res.height + 30, 150),
+      });
+    });
     wx.cloud
       .callFunction({
         name: 'getMarkers',
@@ -116,6 +120,10 @@ Page({
       currentMarkerType: type,
     });
     this.setMarkers();
+    this.data.mapContext.includePoints({
+      points: this.data.markers,
+      padding: [30, 30, 30, 30],
+    });
   },
   setMarkers() {
     this.setData({
